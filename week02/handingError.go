@@ -1,6 +1,6 @@
 /*我们在数据库操作的时候，比如 dao 层中当遇到一个 sql.ErrNoRows 的时候，是否应该 Wrap 这个 error，抛给上层。为什么，应该怎么做请写出代码？
-	该error是需要抛给上层调用者的，dao作为数据操作层，不应对错误去进行处理，应返回给调用者统一处理
- */
+该error是需要抛给上层调用者的，dao作为数据操作层，不应对错误去进行处理，应返回给调用者统一处理
+*/
 
 package main
 
@@ -46,7 +46,7 @@ func main() {
 	connUrl := "root:123456@tcp(localhost:3306)/go_advanced?charset=utf8"
 	account := "test"
 	query := `select * from user where account =?`
-	
+
 	dao := NewDao(connUrl)
 	_, err := dao.GetUserInfo(account, query)
 	if err != nil {
