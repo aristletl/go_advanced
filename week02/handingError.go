@@ -11,7 +11,6 @@ import (
 	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
-	pErr "github.com/pkg/errors"
 )
 
 type Dao struct {
@@ -37,9 +36,13 @@ func (d *Dao) GetUserInfo(account, query string) (name string, err error) {
 		return "", errors.New("dao.GetUserInfo: account is blank")
 	}
 
-	e := d.db.QueryRow(query, account).Scan(&name)
-	err = pErr.Wrap(e, "dao.GetUserInfo: ")
-	return
+	err = d.db.QueryRow(query, account).Scan(&name)
+	switch err {
+	case sql.ErrNoRows:
+		return "", errors.New("dao.GetUserInfo: No such user")
+	default:
+		return
+	}
 }
 
 func main() {
@@ -50,11 +53,6 @@ func main() {
 	dao := NewDao(connUrl)
 	_, err := dao.GetUserInfo(account, query)
 	if err != nil {
-		switch errors.Unwrap(err) {
-		case sql.ErrNoRows:
-			log.Printf("user is not exit with account: %s, %+v\n", account, err)
-		default:
-			log.Println(err)
-		}
+		log.Println(err)
 	}
 }
