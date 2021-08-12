@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option go_package = "internal/conf";
+
+message Data {
+  DB     db     = 1;
+  Server server = 2;
+}
+
+message DB {
+  string DBType       = 1;
+  string Host         = 2;
+  string UserName     = 3;
+  string Password     = 4;
+  string Charset      = 5;
+  string DatabaseName = 6;
+}
+
+message Server {
+  string Addr = 1;
+}

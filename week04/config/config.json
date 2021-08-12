@@ -1,0 +1,13 @@
+{
+    "server": {
+      "Addr": "0.0.0.0:8081"
+    },
+    "db": {
+      "DBType": "mysql",
+      "Host": "localhost:3306",
+      "UserName":"root",
+      "Password":"123456",
+      "Charset":"utf8",
+      "DatabaseName": "go_advanced"
+    }
+}
